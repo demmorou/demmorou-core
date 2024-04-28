@@ -8,7 +8,7 @@
     "baseUrl": "./src",
     "paths": {
       "@demmorou/logger": ["../logger/src"],
-      "@nestjs/logger/*": ["../logger/src/*"]
+      "@demmorou/logger/*": ["../logger/src/*"]
     }
   },
   "references": [
