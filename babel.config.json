@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/preset-typescript"
+  ],
+  "plugins": [
+    "babel-plugin-transform-typescript-metadata",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-transform-class-properties", { "loose": true }],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "@demmorou/logger": "../logger/dist",
+          "@demmorou/errors": "../errors/dist"
+        }
+      }
+    ]
+  ],
+  "ignore": ["**/*.spec.ts", "*.md", "*.json", "node_modules"]
+}

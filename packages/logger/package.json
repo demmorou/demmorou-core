@@ -1,0 +1,19 @@
+{
+  "name": "@demmorou/logger",
+  "version": "1.0.0",
+  "author": "Deusimar (@demmorou)",
+  "description": "Personal libs for geral use",
+  "main": "dist/index.js",
+  "types": "dist/index.d.t",
+  "license": "MIT",
+  "scripts": {
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "build": "rimraf dist && npm run build:types && npm run build:js",
+    "build:js": "babel src --root-mode upward --out-dir dist --extensions .ts --no-comments",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "dependencies": {
+    "rimraf": "^5.0.5"
+  }
+}
