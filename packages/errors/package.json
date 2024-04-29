@@ -15,5 +15,8 @@
   "keywords": [],
   "dependencies": {
     "rimraf": "^5.0.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
   }
 }

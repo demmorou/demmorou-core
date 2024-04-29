@@ -1,3 +1,2 @@
-import { logThis } from '@demmorou/logger';
-
-logThis('a')
+export { CommonError } from "./implementations";
+export { ErrorProps, IError } from "./interfaces";

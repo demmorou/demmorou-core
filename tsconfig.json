@@ -2,12 +2,12 @@
   "extends": "./tsconfig.build.json",
 
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./packages",
     "paths": {
-      "@demmorou/logger": ["./packages/logger/src"],
-      "@demmorou/logger/*": ["./packages/logger/src/*"],
-      "@demmorou/errors": ["./packages/errors/src"],
-      "@demmorou/errors/*": ["./packages/errors/src/*"]
+      "@demmorou/logger": ["./logger/src"],
+      "@demmorou/logger/*": ["./logger/src/*"],
+      "@demmorou/errors": ["./errors/src"],
+      "@demmorou/errors/*": ["./errors/src/*"]
     }
   }
 }

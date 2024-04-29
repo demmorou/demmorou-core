@@ -47,8 +47,10 @@ importers:
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
-
-  packages/erros: {}
+    devDependencies:
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
 
   packages/logger:
     dependencies:
