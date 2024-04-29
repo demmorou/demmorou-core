@@ -6,7 +6,7 @@ import { LoggerOptions } from "../interfaces";
 import { utilities } from "../utils";
 import { Log } from "../types/log.type";
 
-export class RDLogger {
+export class Logger {
   private contextLogger: winston.Logger;
   private logger: winston.Logger;
   private context?: string;
