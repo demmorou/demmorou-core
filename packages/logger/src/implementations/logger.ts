@@ -1,10 +1,9 @@
 import winston from "winston";
 
-import {loggerSerializer} from "../serializers";
+import { loggerSerializer } from "../serializers";
 
 import { LoggerOptions } from "../interfaces";
 import { utilities } from "../utils";
-import { Log } from "../types/log.type";
 
 export class Logger {
   private contextLogger: winston.Logger;
@@ -49,7 +48,7 @@ export class Logger {
     this.contextLogger = this.logger;
   }
 
-  public log(message: Log, context?: any): any {
+  public log(message: any, context?: any): any {
     let logger = this.contextLogger;
 
     if ("object" === typeof message) {
@@ -70,7 +69,7 @@ export class Logger {
     return logger.info(message);
   }
 
-  public debug(message: Log, context?: any): any {
+  public debug(message: any, context?: any): any {
     let logger = this.contextLogger;
 
     if ("object" === typeof message) {
@@ -91,7 +90,7 @@ export class Logger {
     return logger.debug(message);
   }
 
-  public info(message: Log, context?: any): any {
+  public info(message: any, context?: any): any {
     let logger = this.contextLogger;
 
     if ("object" === typeof message) {
@@ -118,7 +117,7 @@ export class Logger {
     return logger.info(message);
   }
 
-  public warn(message: Log, context?: any): any {
+  public warn(message: any, context?: any): any {
     let logger = this.contextLogger;
 
     if ("object" === typeof message) {
@@ -222,7 +221,7 @@ export class Logger {
     return logger.emerg(message);
   }
 
-  public verbose(message: Log, context?: any): any {
+  public verbose(message: any, context?: any): any {
     let logger = this.contextLogger;
 
     if ("object" === typeof message) {
@@ -239,6 +238,7 @@ export class Logger {
     if ("string" === typeof context) {
       logger = logger.child({ context });
     }
+
     if ("object" === typeof context) {
       logger = logger.child(context);
     }
@@ -249,9 +249,11 @@ export class Logger {
   public addContext(data: any): void {
     this.contextLogger = this.contextLogger.child(data);
   }
+
   public clearContext(): void {
     this.contextLogger = this.logger;
   }
+
   public setContext(context: string) {
     this.context = context;
   }
