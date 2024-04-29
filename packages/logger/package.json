@@ -1,6 +1,6 @@
 {
   "name": "@demmorou/logger",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Deusimar (@demmorou)",
   "description": "Custom logger implementation with winston",
   "main": "dist/index.js",
