@@ -1,11 +1,19 @@
 {
   "name": "@demmorou/logger",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Deusimar (@demmorou)",
-  "description": "Personal libs for geral use",
+  "description": "Custom logger implementation with winston",
   "main": "dist/index.js",
   "types": "dist/index.d.t",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/demmorou/demmorou-core.git",
+    "directory": "packages/logger"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "build": "rimraf dist && npm run build:types && npm run build:js",
