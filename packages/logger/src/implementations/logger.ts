@@ -52,8 +52,6 @@ export class Logger {
   public log(message: Log, context?: any): any {
     let logger = this.contextLogger;
 
-    message.OS = process.platform;
-
     if ("object" === typeof message) {
       const { message: msg, level = "info", ...meta } = message;
       context = context || this.context;
@@ -75,8 +73,6 @@ export class Logger {
   public debug(message: Log, context?: any): any {
     let logger = this.contextLogger;
 
-    message.OS = process.platform;
-
     if ("object" === typeof message) {
       const { message: msg, level = "info", ...meta } = message;
       context = context || this.context;
@@ -97,8 +93,6 @@ export class Logger {
 
   public info(message: Log, context?: any): any {
     let logger = this.contextLogger;
-
-    message.OS = process.platform;
 
     if ("object" === typeof message) {
       const { message: msg, level = "info", ...meta } = message;
@@ -126,8 +120,6 @@ export class Logger {
 
   public warn(message: Log, context?: any): any {
     let logger = this.contextLogger;
-
-    message.OS = process.platform;
 
     if ("object" === typeof message) {
       const { message: msg, level = "info", ...meta } = message;
@@ -188,7 +180,7 @@ export class Logger {
     return logger.error(message, trace);
   }
 
-  /* public critical(message: any, context?: any): any {
+  public critical(message: any, context?: any): any {
     let logger = this.contextLogger;
 
     if ("object" === typeof message) {
@@ -207,9 +199,9 @@ export class Logger {
     }
 
     return logger.crit(message);
-  } */
+  }
 
-  /* public fatal(message: any, context?: any): any {
+  public fatal(message: any, context?: any): any {
     let logger = this.contextLogger;
 
     if ("object" === typeof message) {
@@ -228,12 +220,10 @@ export class Logger {
     }
 
     return logger.emerg(message);
-  } */
+  }
 
   public verbose(message: Log, context?: any): any {
     let logger = this.contextLogger;
-
-    message.OS = process.platform;
 
     if ("object" === typeof message) {
       const { message: msg, level, ...meta } = message;
