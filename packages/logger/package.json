@@ -23,7 +23,7 @@
   "engines": {
     "node": ">= 20.x"
   },
-  "keywords": [],
+  "keywords": ["logger", "winston", "custom", "node"],
   "dependencies": {
     "fast-safe-stringify": "^2.1.1",
     "logform": "^2.6.0",
