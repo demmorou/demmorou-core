@@ -19,7 +19,11 @@ export class Logger {
 
     this.logger = winston.createLogger({
       level: "debug",
-      defaultMeta: { ...this.options },
+      defaultMeta: {
+        env: this.options.env,
+        app_name: this.options.app_name,
+        version: this.options.version,
+      },
       format: winston.format.combine(
         winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
         winston.format.metadata({
@@ -28,7 +32,7 @@ export class Logger {
         winston.format.json()
       ),
       transports: [
-        this.options.env === "develop"
+        this.options.isDev
           ? new winston.transports.Console({
               format: winston.format.combine(
                 winston.format.colorize({ all: true }),
