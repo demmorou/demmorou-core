@@ -23,7 +23,7 @@ jobs:
           version: 8
 
       - name: Install dependencies
-        run: pnpm eslint-config i
+        run: pnpm -F eslint-config i
 
       - name: Build eslint-config
         run: pnpm eslint-config build
