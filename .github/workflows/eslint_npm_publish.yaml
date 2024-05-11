@@ -26,9 +26,9 @@ jobs:
         run: pnpm -F eslint-config i
 
       - name: Build eslint-config
-        run: pnpm eslint-config build
+        run: pnpm -F eslint-config build
 
       - name: Publish eslint-config
-        run: pnpm eslint-config publish --no-git-check
+        run: pnpm -F eslint-config publish --no-git-check
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
