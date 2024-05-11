@@ -1,0 +1,28 @@
+{
+  "name": "@rd-core/eslint-config",
+  "version": "1.0.0",
+  "betaVersion": "1",
+  "description": "A sharable eslint config",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && npm run build:types && npm run build:js",
+    "build:js": "babel src --root-mode upward --out-dir dist --extensions .ts --no-comments",
+    "build:types": "yarn tsc",
+    "publish:local": "npm publish --registry=http://localhost:4873/",
+    "unpublish:local": "npm unpublish --registry=http://localhost:4873/ --force"
+  },
+  "peerDependencies": {
+    "eslint": ">= 8",
+    "prettier": ">= 3",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-import-helpers": "^1.1.0",
+    "eslint-plugin-prettier": "^5.1.3"
+  }
+}
