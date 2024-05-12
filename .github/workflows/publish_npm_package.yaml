@@ -8,12 +8,6 @@ jobs:
   publish-package:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        package:
-          - eslint-config
-          - logger
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,20 +23,30 @@ jobs:
         with:
           version: 8
 
+      - name: Determine branch from release
+        id: determine_branch
+        run: echo ::set-output name=branch::${GITHUB_REF#refs/*/}
+
+      - name: Identify package name
+        id: determine_package
+        run: echo ::set-output name=package::$(echo ${{ steps.determine_branch.outputs.branch }} | cut -d / -f 2)
+
       - name: Check if package is allowed
         run: |
-          if [[ ! "eslint-config logger" =~ "${{ matrix.package }}" ]]; then
+          if [[ "${{ steps.determine_package.outputs.package }}" != "$PACKAGE_NAME" ]]; then
             echo "Package not allowed. Exiting..."
             exit 1
           fi
+        env:
+          PACKAGE_NAME: ${{ steps.determine_package.outputs.package }}
 
       - name: Install dependencies
-        run: pnpm -F ${{ matrix.package }} i
+        run: pnpm -F $PACKAGE_NAME i
 
       - name: Build package
-        run: pnpm -F ${{ matrix.package }} build
+        run: pnpm -F $PACKAGE_NAME build
 
       - name: Publish package
-        run: pnpm -F ${{ matrix.package }} publish --no-git-check
+        run: pnpm -F $PACKAGE_NAME publish --no-git-check
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

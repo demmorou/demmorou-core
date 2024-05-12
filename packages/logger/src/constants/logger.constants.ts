@@ -1,1 +1,1 @@
-export const LOGGER_TOKEN = "LOGGER_TOKEN";
+export const LOGGER_TOKEN = 'LOGGER_TOKEN';

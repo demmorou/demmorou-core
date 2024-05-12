@@ -1,7 +1,8 @@
-import { Format } from "logform";
-import { format } from "winston";
-import { inspect } from "util";
-import safeStringify from "fast-safe-stringify";
+/* eslint-disable no-param-reassign */
+import safeStringify from 'fast-safe-stringify';
+import { Format } from 'logform';
+import { inspect } from 'util';
+import { format } from 'winston';
 
 type ConsoleFormatOptions = {
   colors?: boolean;
@@ -26,14 +27,14 @@ const colorScheme: Record<string, (text: string) => string> = {
 };
 
 const consoleFormat = (
-  appName = "RDLogger",
+  appName = 'Logger',
   options: ConsoleFormatOptions = {
     colors: !process.env.NO_COLOR,
     prettyPrint: false,
-  }
+  },
 ): Format =>
   format.printf(({ context, level, timestamp, message, ms, ...meta }) => {
-    if ("undefined" !== typeof timestamp) {
+    if (typeof timestamp !== 'undefined') {
       // Only format the timestamp to a locale representation if it's ISO 8601 format. Any format
       // that is not a valid date string will throw, just ignore it (it will be printed as-is).
       try {
@@ -61,14 +62,12 @@ const consoleFormat = (
 
     return (
       `${color(`[${appName}]`)} ` +
-      `${yellow(level.charAt(0).toUpperCase() + level.slice(1))}\t` +
-      ("undefined" !== typeof timestamp ? `${timestamp} ` : "") +
-      ("undefined" !== typeof context
-        ? `${yellow("[" + context + "]")} `
-        : "") +
-      `${color(message)} - ` +
-      `${formattedMeta}` +
-      ("undefined" !== typeof ms ? ` ${yellow(ms)}` : "")
+      `${yellow(level.charAt(0).toUpperCase() + level.slice(1))}\t${
+        typeof timestamp !== 'undefined' ? `${timestamp} ` : ''
+      }${
+        typeof context !== 'undefined' ? `${yellow(`[${context}]`)} ` : ''
+      }${color(message)} - ` +
+      `${formattedMeta}${typeof ms !== 'undefined' ? ` ${yellow(ms)}` : ''}`
     );
   });
 
