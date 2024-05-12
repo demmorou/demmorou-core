@@ -1,6 +1,6 @@
 {
   "name": "@demmorou/eslint-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Deusimar (@demmorou)",
   "description": "A sharable eslint config",
   "main": "dist/index.js",
@@ -19,7 +19,8 @@
     "build": "rimraf dist && npm run build:types && npm run build:js",
     "build:js": "babel src --root-mode upward --out-dir dist --extensions .ts --no-comments",
     "publish:local": "npm publish --registry=http://localhost:4873/",
-    "unpublish:local": "npm unpublish --registry=http://localhost:4873/ --force"
+    "unpublish:local": "npm unpublish --registry=http://localhost:4873/ --force",
+    "lint": "eslint src/**/*.ts --fix"
   },
   "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.1.0",

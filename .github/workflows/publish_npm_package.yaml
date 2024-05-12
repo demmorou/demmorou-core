@@ -1,0 +1,49 @@
+name: Publish Packages to npm
+
+on:
+  push:
+    tags:
+      - 'release/*/*'
+
+jobs:
+  publish-package:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        package:
+          - eslint-config
+          - logger
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - uses: pnpm/action-setup@v3
+        name: Install pnpm
+        with:
+          version: 8
+
+      - name: Check if package is allowed
+        run: |
+          if [[ ! "eslint-config logger" =~ "${{ matrix.package }}" ]]; then
+            echo "Package not allowed. Exiting..."
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: pnpm -F ${{ matrix.package }} i
+
+      - name: Build package
+        run: pnpm -F ${{ matrix.package }} build
+
+      - name: Publish package
+        run: pnpm -F ${{ matrix.package }} publish --no-git-check
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
