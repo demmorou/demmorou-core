@@ -25,20 +25,20 @@ jobs:
 
       - name: Determine branch from release
         id: determine_branch
-        run: echo ::set-output name=branch::${GITHUB_REF#refs/*/}
+        run: echo "branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       - name: Identify package name
         id: determine_package
-        run: echo ::set-output name=package::$(echo ${{ steps.determine_branch.outputs.branch }} | cut -d / -f 2)
+        run: echo "package=$(echo ${GITHUB_REF#refs/*/} | cut -d / -f 2)" >> $GITHUB_ENV
 
       - name: Check if package is allowed
         run: |
-          if [[ "${{ steps.determine_package.outputs.package }}" != "$PACKAGE_NAME" ]]; then
+          if [[ "${{ env.package }}" != "$PACKAGE_NAME" ]]; then
             echo "Package not allowed. Exiting..."
             exit 1
           fi
         env:
-          PACKAGE_NAME: ${{ steps.determine_package.outputs.package }}
+          PACKAGE_NAME: ${{ env.package }}
 
       - name: Install dependencies
         run: pnpm -F $PACKAGE_NAME i
