@@ -1,6 +1,6 @@
 {
   "name": "@demmorou/logger",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": "Deusimar (@demmorou)",
   "description": "Custom logger implementation based on winston. For any Node.js application.",
   "main": "dist/index.js",
@@ -18,7 +18,8 @@
     "build:types": "tsc --emitDeclarationOnly --outDir dist",
     "build": "rimraf dist && npm run build:types && npm run build:js",
     "build:js": "babel src --root-mode upward --out-dir dist --extensions .ts --no-comments",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/**/*.ts --fix"
   },
   "engines": {
     "node": ">= 20.x"

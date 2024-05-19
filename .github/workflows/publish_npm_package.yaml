@@ -1,8 +1,9 @@
 name: Publish Packages to npm
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - 'release/**'
 
 jobs:
   publish-package:
@@ -29,20 +30,15 @@ jobs:
         with:
           version: 8
 
-      - name: Check if package is allowed
-        run: |
-          if [[ ! "eslint-config logger" =~ "${{ matrix.package }}" ]]; then
-            echo "Package not allowed. Exiting..."
-            exit 1
-          fi
+      - name: Set package variable
+        id: set_package
+        run: echo "PACKAGE=$(echo ${GITHUB_REF#refs/heads/release/} | cut -d'/' -f1)" >> $GITHUB_ENV
 
-      - name: Install dependencies
-        run: pnpm -F ${{ matrix.package }} i
+      - name: Install specific package dependencies
+        run: pnpm -F ${{ env.PACKAGE }} i
 
-      - name: Build package
-        run: pnpm -F ${{ matrix.package }} build
+      - name: Build specific package
+        run: pnpm -F ${{ env.PACKAGE }} build
 
-      - name: Publish package
-        run: pnpm -F ${{ matrix.package }} publish --no-git-check
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish specific package
+        run: pnpm -F ${{ env.PACKAGE }} publish

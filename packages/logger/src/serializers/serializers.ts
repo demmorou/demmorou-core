@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const loggerSerializer = {
   err: (err: Error): any => {
     if (!err) {

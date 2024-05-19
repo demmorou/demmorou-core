@@ -1,9 +1,10 @@
-import winston from "winston";
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import winston from 'winston';
 
-import { loggerSerializer } from "../serializers";
-
-import { LoggerOptions } from "../interfaces";
-import { utilities } from "../utils";
+import { LoggerOptions } from '../interfaces';
+import { loggerSerializer } from '../serializers';
+import { utilities } from '../utils';
 
 export class Logger {
   private contextLogger: winston.Logger;
@@ -12,24 +13,24 @@ export class Logger {
 
   constructor(private options: LoggerOptions) {
     const logFormat = winston.format.printf(
-      ({ level, message, timestamp }) => `${timestamp} ${level}: ${message}`
+      ({ level, message, timestamp }) => `${timestamp} ${level}: ${message}`,
     );
 
     const parse = winston.format.printf((message) => JSON.stringify(message));
 
     this.logger = winston.createLogger({
-      level: "debug",
+      level: 'debug',
       defaultMeta: {
         env: this.options.env,
         app_name: this.options.app_name,
         version: this.options.version,
       },
       format: winston.format.combine(
-        winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         winston.format.metadata({
-          fillExcept: ["message", "level", "timestamp", "label"],
+          fillExcept: ['message', 'level', 'timestamp', 'label'],
         }),
-        winston.format.json()
+        winston.format.json(),
       ),
       transports: [
         this.options.isDev
@@ -40,7 +41,7 @@ export class Logger {
                 utilities.format.outputLoggerFormat(this.options.app_name, {
                   prettyPrint: true,
                   colors: true,
-                })
+                }),
               ),
             })
           : new winston.transports.Console({
@@ -55,8 +56,9 @@ export class Logger {
   public log(message: any, context?: any): any {
     let logger = this.contextLogger;
 
-    if ("object" === typeof message) {
-      const { message: msg, level = "info", ...meta } = message;
+    if (typeof message === 'object') {
+      const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta) {
@@ -76,8 +78,9 @@ export class Logger {
   public debug(message: any, context?: any): any {
     let logger = this.contextLogger;
 
-    if ("object" === typeof message) {
-      const { message: msg, level = "info", ...meta } = message;
+    if (typeof message === 'object') {
+      const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta) {
@@ -97,8 +100,9 @@ export class Logger {
   public info(message: any, context?: any): any {
     let logger = this.contextLogger;
 
-    if ("object" === typeof message) {
-      const { message: msg, level = "info", ...meta } = message;
+    if (typeof message === 'object') {
+      const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta) {
@@ -124,8 +128,9 @@ export class Logger {
   public warn(message: any, context?: any): any {
     let logger = this.contextLogger;
 
-    if ("object" === typeof message) {
-      const { message: msg, level = "info", ...meta } = message;
+    if (typeof message === 'object') {
+      const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta) {
@@ -146,7 +151,8 @@ export class Logger {
     let logger = this.contextLogger;
 
     if (message instanceof Error) {
-      const { message: msg, name, stack, ...meta } = message;
+      const { message: msg, name, ...meta } = message;
+
       context = context || this.context;
 
       if (meta || trace || context) {
@@ -161,8 +167,9 @@ export class Logger {
       return logger.error(msg);
     }
 
-    if (typeof message === "object") {
-      const { message: msg, name, stack, ...meta } = message;
+    if (typeof message === 'object') {
+      const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta || trace || context) {
@@ -186,8 +193,9 @@ export class Logger {
   public critical(message: any, context?: any): any {
     let logger = this.contextLogger;
 
-    if ("object" === typeof message) {
+    if (typeof message === 'object') {
       const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta) {
@@ -207,8 +215,9 @@ export class Logger {
   public fatal(message: any, context?: any): any {
     let logger = this.contextLogger;
 
-    if ("object" === typeof message) {
-      const { message: msg, level = "info", ...meta } = message;
+    if (typeof message === 'object') {
+      const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta) {
@@ -228,8 +237,9 @@ export class Logger {
   public verbose(message: any, context?: any): any {
     let logger = this.contextLogger;
 
-    if ("object" === typeof message) {
-      const { message: msg, level, ...meta } = message;
+    if (typeof message === 'object') {
+      const { message: msg, ...meta } = message;
+
       context = context || this.context;
 
       if (meta) {
@@ -239,11 +249,11 @@ export class Logger {
       return logger.verbose(msg);
     }
 
-    if ("string" === typeof context) {
+    if (typeof context === 'string') {
       logger = logger.child({ context });
     }
 
-    if ("object" === typeof context) {
+    if (typeof context === 'object') {
       logger = logger.child(context);
     }
 

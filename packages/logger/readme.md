@@ -98,7 +98,7 @@ export class AppLoggerModule {}
 Usando dentro de um logger interceptor:
 
 ```typescript
-import { AppLogger } from '@infra/logger/logger.service';
+import { AppLogger } from '../logger/logger.service';
 import {
   Injectable,
   NestInterceptor,
