@@ -8,6 +8,12 @@ jobs:
   publish-package:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        package:
+          - eslint-config
+          - logger
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,30 +29,15 @@ jobs:
         with:
           version: 8
 
-      - name: Determine branch from release
-        id: determine_branch
-        run: echo "branch=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Set package variable
+        id: set_package
+        run: echo "PACKAGE=$(echo ${GITHUB_REF#refs/heads/release/} | cut -d'/' -f1)" >> $GITHUB_ENV
 
-      - name: Identify package name
-        id: determine_package
-        run: echo "package=$(echo ${GITHUB_REF#refs/*/} | cut -d / -f 2)" >> $GITHUB_ENV
+      - name: Install specific package dependencies
+        run: pnpm -F ${{ env.PACKAGE }} i
 
-      - name: Check if package is allowed
-        run: |
-          if [[ "${{ env.package }}" != "$PACKAGE_NAME" ]]; then
-            echo "Package not allowed. Exiting..."
-            exit 1
-          fi
-        env:
-          PACKAGE_NAME: ${{ env.package }}
+      - name: Build specific package
+        run: pnpm -F ${{ env.PACKAGE }} build
 
-      - name: Install dependencies
-        run: pnpm -F $PACKAGE_NAME i
-
-      - name: Build package
-        run: pnpm -F $PACKAGE_NAME build
-
-      - name: Publish package
-        run: pnpm -F $PACKAGE_NAME publish --no-git-check
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish specific package
+        run: pnpm -F ${{ env.PACKAGE }} publish
