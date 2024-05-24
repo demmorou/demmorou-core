@@ -15,7 +15,7 @@ npm install @demmorou/logger --save
 Importe a classe `Logger` e defina as LoggerOptions no momento da instanciação.
 
 ```typescript
-import { Logger, LoggerOptions } from 'logger';
+import { Logger, LoggerOptions } from '@demmorou/logger';
 
 // Defina as opções do logger
 const options: LoggerOptions = {
@@ -32,7 +32,7 @@ const logger = new Logger(options);
 Se preferir, você pode extender a classe `Logger` para uma outra classe na sua aplicação:
 
 ```typescript
-import { Logger, LoggerOptions } from 'logger';
+import { Logger, LoggerOptions } from '@demmorou/logger';
 
 export class MyLogger extends Logger {
   constructor() {
@@ -98,7 +98,7 @@ export class AppLoggerModule {}
 Usando dentro de um logger interceptor:
 
 ```typescript
-import { AppLogger } from '@infra/logger/logger.service';
+import { AppLogger } from '../logger/logger.service';
 import {
   Injectable,
   NestInterceptor,
