@@ -40,4 +40,6 @@ jobs:
         run: pnpm -F ${{ env.PACKAGE }} build
 
       - name: Publish specific package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpm -F ${{ env.PACKAGE }} publish --no-git-checks
