@@ -42,4 +42,4 @@ jobs:
       - name: Publish specific package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm -F ${{ env.PACKAGE }} publish --no-git-checks
+        run: pnpm -F ${{ env.PACKAGE }} publish registry=https://registry.npmjs.org/ --no-git-checks
