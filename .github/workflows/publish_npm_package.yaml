@@ -41,4 +41,4 @@ jobs:
         run: pnpm -F ${{ env.PACKAGE }} build
 
       - name: Publish specific package
-        run: pnpm -F ${{ env.PACKAGE }} publish --no-git-checks
+        run: pnpm -F ${{ env.PACKAGE }} publish --registry=https://registry.npmjs.org --no-git-checks
