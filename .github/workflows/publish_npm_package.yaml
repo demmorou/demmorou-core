@@ -3,7 +3,7 @@ name: Publish Packages to npm
 on:
   push:
     branches:
-      - main
+      - 'release/**'
 
 jobs:
   publish-package:
@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         package:
-          - eslint-config
           - logger
 
     steps:
@@ -41,4 +40,6 @@ jobs:
         run: pnpm -F ${{ env.PACKAGE }} build
 
       - name: Publish specific package
-        run: pnpm -F ${{ env.PACKAGE }} publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm -F ${{ env.PACKAGE }} publish --no-git-checks
